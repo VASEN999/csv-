@@ -1,0 +1,145 @@
+.passport-error-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    height: 100%;
+}
+
+.passport-preview-section,
+.error-records-section {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.error-records {
+    flex: 1;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 10px;
+    overflow-y: auto;
+    height: calc(100% - 40px);
+}
+
+.error-record-item {
+    padding: 10px;
+    margin-bottom: 8px;
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.error-record-item:hover {
+    background: #f8f9fa;
+    border-color: #dee2e6;
+}
+
+.error-record-item.active {
+    background: #e7f5ff;
+    border-color: #74c0fc;
+}
+
+.error-record-item.marked {
+    background: #fff3bf;
+    border-color: #ffd43b;
+    border-width: 2px;
+}
+
+.error-record-item.marked:hover {
+    background: #fff0b3;
+    border-color: #fcc419;
+}
+
+.error-record-item.marked.active {
+    background: #ffec99;
+    border-color: #fab005;
+}
+
+.error-record-item.marked::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background-color: #fcc419;
+    border-radius: 4px 0 0 4px;
+}
+
+.error-record-item .mark-button {
+    padding: 2px 8px;
+    font-size: 12px;
+    border-radius: 4px;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.error-record-item .mark-button:hover {
+    background: #e9ecef;
+    border-color: #ced4da;
+}
+
+.error-record-item.marked .mark-button {
+    background: #ffd43b;
+    border-color: #fcc419;
+    color: #000;
+    font-weight: 500;
+}
+
+.error-record-item .record-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.error-record-item .record-content {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.error-record-item .error-type {
+    color: #dc3545;
+    font-size: 0.85em;
+}
+
+.error-stats {
+    background: #fff;
+    padding: 15px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 15px;
+}
+
+.error-stats .stat-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.error-stats .stat-label {
+    color: #666;
+}
+
+.error-stats .stat-value {
+    font-weight: bold;
+}
+
+.error-stats .stat-value.success {
+    color: #198754;
+}
+
+.error-stats .stat-value.error {
+    color: #dc3545;
+}
+
+.error-stats .stat-value.warning {
+    color: #ffc107;
+} 

@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+    image: passport-checker:latest
+    container_name: passport-checker-web
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./uploads:/app/uploads
+      - ./logs:/app/logs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    depends_on:
+      - redis
+    networks:
+      - passport_network
+
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: passport-checker-nginx
+    restart: unless-stopped
+    ports:
+      - "${NGINX_PORT:-80}:80"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/ssl:/etc/nginx/ssl
+      - ./nginx/logs:/var/log/nginx
+      - ./uploads:/usr/share/nginx/uploads
+    depends_on:
+      - web
+    networks:
+      - passport_network
+      
+  redis:
+    image: redis:7.2-alpine
+    container_name: passport-checker-redis
+    restart: unless-stopped
+    volumes:
+      - ./cache/redis:/data
+    command: redis-server --save 60 1 --loglevel warning
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - passport_network
+
+networks:
+  passport_network:
+    name: ${DOCKER_NETWORK:-passport_network}
+    driver: bridge 
